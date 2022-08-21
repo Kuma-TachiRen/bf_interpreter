@@ -1,0 +1,50 @@
+<!doctype html>
+<html dir="ltr" lang="ja">
+
+<head>
+    <meta charset="utf-8">
+    <title>Brainfuck Interpreter</title>
+    <style>
+        * {
+            font-family: Menlo, Monaco, 'Courier New', monospace;
+        }
+
+        #content {
+            display: flex;
+            width: 100%;
+        }
+
+        .panel {
+            width: 50%;
+        }
+    </style>
+    <script src="script.js"></script>
+</head>
+
+<body>
+    <div id="content">
+        <div class="panel">
+            <div>
+                <label for="code">Code</label>
+                <textarea id="code" style="width: 100%;"></textarea>
+            </div>
+            <div>
+                <label for="input">Input</label>
+                <textarea id="input" style="width: 100%;"></textarea>
+            </div>
+            <button id="run">Run</button>
+            <div>
+                <label for="output">Output</label>
+                <textarea id="output" style="width: 100%;"></textarea>
+            </div>
+            <div>
+                <label for="array">Array</label>
+                <table>
+                    <tr id="array"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
