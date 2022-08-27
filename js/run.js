@@ -1,9 +1,5 @@
-window.onload = function () {
-    document.getElementById('run').addEventListener('click', run);
-};
-
 function run() {
-    const code = document.getElementById('code').value;
+    const code = document.getElementById('rawcode').value;
     const input = document.getElementById('input').value;
 
     let ptr = 0;
@@ -30,7 +26,7 @@ function run() {
                 break;
             case ',':
                 if (inputat >= input.length) {
-                    throwError();
+                    throwError(`At ${codeat}: Input length is insufficient`);
                     return;
                 }
                 arr[ptr] = input.charCodeAt(inputat);
@@ -39,27 +35,33 @@ function run() {
             case '[':
                 if (arr[ptr] == 0) {
                     let cnt = 1;
-                    while (cnt) {
+                    let codeat_old = codeat;
+                    while (cnt != 0) {
                         codeat++;
                         if (codeat >= code.length) {
-                            throwError('There is not enough \']\'');
+                            throwError(`At ${codeat_old}: There is not enough '['`);
                             return;
                         }
                         if (code[codeat] == '[') cnt++;
                         if (code[codeat] == ']') cnt--;
                     }
                 }
+                break;
             case ']':
-                let cnt = -1;
-                while (cnt) {
-                    codeat--;
-                    if (codeat < 0) {
-                        throwError('There is not enough \'[\'');
-                        return;
+                if (arr[ptr] != 0) {
+                    let cnt = -1;
+                    let codeat_old = codeat;
+                    while (cnt != 0) {
+                        codeat--;
+                        if (codeat < 0) {
+                            throwError(`At ${codeat_old}: There is not enough '['`);
+                            return;
+                        }
+                        if (code[codeat] == '[') cnt++;
+                        if (code[codeat] == ']') cnt--;
                     }
-                    if (code[codeat] == '[') cnt++;
-                    if (code[codeat] == ']') cnt--;
                 }
+                break;
         }
         if (!arr[ptr]) arr[ptr] = 0;
         arr[ptr] &= 255;

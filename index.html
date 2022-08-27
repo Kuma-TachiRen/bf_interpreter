@@ -17,8 +17,14 @@
         .panel {
             width: 50%;
         }
+
+        textarea {
+            min-height: 8em;
+        }
     </style>
-    <script src="script.js"></script>
+    <script src="js/run.js"></script>
+    <script src="js/translate.js"></script>
+    <script src="js/script.js"></script>
 </head>
 
 <body>
@@ -27,6 +33,10 @@
             <div>
                 <label for="code">Code</label>
                 <textarea id="code" style="width: 100%;"></textarea>
+            </div>
+            <div>
+                <label for="rawcode">RawCode</label>
+                <textarea id="rawcode" style="width: 100%;"></textarea>
             </div>
             <div>
                 <label for="input">Input</label>
