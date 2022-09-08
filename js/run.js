@@ -7,6 +7,7 @@ function run() {
     let codeat = 0;
     let inputat = 0;
     let output = '';
+    let looplim = 10000000;
     while (codeat < code.length) {
         switch (code[codeat]) {
             case '>':
@@ -26,7 +27,7 @@ function run() {
                 break;
             case ',':
                 if (inputat >= input.length) {
-                    throwError(`At ${codeat}: Input length is insufficient`);
+                    throwError(codeat, 'Input length is insufficient');
                     return;
                 }
                 arr[ptr] = input.charCodeAt(inputat);
@@ -39,7 +40,7 @@ function run() {
                     while (cnt != 0) {
                         codeat++;
                         if (codeat >= code.length) {
-                            throwError(`At ${codeat_old}: There is not enough '['`);
+                            throwError(codeat_old, 'There is not enough \'[\'');
                             return;
                         }
                         if (code[codeat] == '[') cnt++;
@@ -63,9 +64,18 @@ function run() {
                 }
                 break;
         }
+        if (ptr < 0) {
+            throwError(codeat, 'Attempted to move to before the first cell');
+            break;
+        }
         if (!arr[ptr]) arr[ptr] = 0;
         arr[ptr] &= 255;
         codeat++;
+        looplim--;
+        if (looplim < 0) {
+            throwError(codeat, 'Executable length exceeded');
+            break;
+        }
     }
     document.getElementById('output').value = output;
 
@@ -78,6 +88,12 @@ function run() {
     });
 }
 
-function throwError(error) {
-    alert(error);
+function throwError(at = -1, error) {
+    if (at > -1) {
+        const elm = document.getElementById('rawcode');
+        elm.setSelectionRange(at, at + 1);
+        elm.blur();
+        elm.focus();
+    }
+    alert(`At ${at}: ${error}`);
 }

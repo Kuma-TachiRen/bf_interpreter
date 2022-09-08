@@ -15,7 +15,7 @@
         }
 
         .panel {
-            width: 50%;
+            width: 100%;
         }
 
         textarea {
@@ -32,11 +32,17 @@
         <div class="panel">
             <div>
                 <label for="code">Code</label>
+                <button id="format">Format</button>
                 <textarea id="code" style="width: 100%;"></textarea>
             </div>
             <div>
                 <label for="rawcode">RawCode</label>
                 <textarea id="rawcode" style="width: 100%;"></textarea>
+            </div>
+            <div>
+                <label for="copy">SimpleCode</label>
+                <button id="copy">Copy</button>
+                <input type="text" id="copycode" style="width: 100%;">
             </div>
             <div>
                 <label for="input">Input</label>
